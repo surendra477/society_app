@@ -101,6 +101,6 @@ app.post("/welcome", auth, (req, res) => {
 });
 module.exports = app;
 
-app.listen("3000", () => {
+app.listen(process.env.PORT || "3000", () => {
   console.log(`Server running on port 3000`);
 });
