@@ -2,6 +2,8 @@ require("dotenv").config();
 require("./config/database").connect();
 const express = require("express");
 const User = require("./model/user");
+const User = require("./model/user");
+const Meeting = require("./model/meeting");
 const auth = require("./middleware/auth");
 var bcrypt = require('bcryptjs');
 var jwt = require("jsonwebtoken");
@@ -12,6 +14,17 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+//meeting goes here
+
+app.get("/api/meeting" , async (req, res) => {
+    try{
+        const meetingsList = await Meeting.find()
+        console.log();
+    }
+    catch{
+
+    }
+})
 
 // Logic goes here
 app.post("/api/register", async (req, res) => {
