@@ -19,7 +19,7 @@ app.post("/api/register", async (req, res) => {
     // Our register logic starts here
     try {
       // Get user input
-      const { name, room_number, buil_number, password,email } = req.body;
+      const { name, room_number, build_number, password,email } = req.body;
   
       // Validate user input
       if (!(email && password && name && room_number  && build_number)) {
