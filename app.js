@@ -19,8 +19,7 @@ app.use(express.urlencoded({
 app.get("/api/meeting" , async (req, res) => {
     try{
         const meetingsList = await Meeting.find()
-        console.log();
-    }
+res.status(201).json(meetingsList);    }
     catch{
 
     }
