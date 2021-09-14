@@ -36,7 +36,7 @@ app.post("/api/register", async (req, res) => {
     const user = await User.create({
         name,
         room_number,
-        buil_number,
+        building_number,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
       password: encryptedPassword,
     });
