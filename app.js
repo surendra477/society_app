@@ -19,10 +19,10 @@ app.post("/api/register", async (req, res) => {
     // Our register logic starts here
     try {
       // Get user input
-      const { name, room_number, build_number, password,email } = req.body;
+      const { name, room_number, building_number, password,email } = req.body;
   
       // Validate user input
-      if (!(email && password && name && room_number  && build_number)) {
+      if (!(email && password && name && room_number  && building_number)) {
         res.status(400).send("All input is required");
       }
       const oldUser = await User.findOne({ email });
