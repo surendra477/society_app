@@ -46,7 +46,7 @@ app.post("/api/register", async (req, res) => {
       { user_id: user._id, email },
       process.env.TOKEN_KEY,
       {
-        expiresIn: "2h",
+        expiresIn: "365d",
       }
     );
     user.token = token;
