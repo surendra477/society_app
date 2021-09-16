@@ -20,7 +20,10 @@ app.get("/api/meeting" , async (req, res) => {
     try{
         const meetingsList = await meetings.find()
         //console.log(meetingsList);
-        res.status(201).json(meetingsList);
+         let data = { meetingsList}
+       // console.log(meeetngs);
+        res.status(201).json(data);
+       
     }
     catch{
       console.log(err);
