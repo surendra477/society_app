@@ -7,4 +7,4 @@ const MeetingSchema = new mongoose.Schema({
     description: { type: String, default: null },
 });
 
-module.exports = mongoose.model("meetings", userSchema);
+module.exports = mongoose.model("meetings", MeetingSchema);
