@@ -5,13 +5,8 @@ const userSchema = new mongoose.Schema({
     room_number: { type: String, default: null },
     building_number: { type: String, default: null },
     password: { type: String },
-    email:{ type: String,unique:true,
-          trim: true,
-        lowercase: true,
-        unique: true,
-        required: 'Email address is required',
-        validate: [validateEmail, 'Please fill a valid email address'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']},
+    email:{ type: String,unique:true
+         },
     token: { type: String },
 });
 
