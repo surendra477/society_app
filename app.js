@@ -20,7 +20,7 @@ app.use(express.urlencoded({
 app.get("/api/emergency_number" , async (req, res) => {
   try{
       const emergencyNumberList = await emergency_number.find()
-      //console.log(meetingsList);
+      console.log(emergencyNumberList);
        let data = {emergencyNumberList}
      // console.log(meeetngs);
       res.status(201).json(data);
