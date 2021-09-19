@@ -7,6 +7,7 @@ const meetings = require("./model/meetings");
 const auth = require("./middleware/auth");
 var bcrypt = require('bcryptjs');
 var jwt = require("jsonwebtoken");
+const emergency_number = require("./model/emergency_number");
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,22 @@ app.use(express.urlencoded({
 }));
 
 //meeting goes here
+
+app.get("/api/emergency_number" , async (req, res) => {
+  try{
+      const emergencyNumberList = await emergency_number.find()
+      //console.log(meetingsList);
+       let data = {emergencyNumberList}
+     // console.log(meeetngs);
+      res.status(201).json(data);
+     
+  }
+  catch{
+    console.log(err);
+  }
+})
+
+
 
 app.get("/api/meeting" , async (req, res) => {
     try{
