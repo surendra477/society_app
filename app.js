@@ -10,6 +10,8 @@ var jwt = require("jsonwebtoken");
 const emergency_number = require("./model/emergency_number");
 const notice = require("./model/notice");
 const event = require("./model/event");
+const complaint = require("./model/complaint");
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({
@@ -21,7 +23,7 @@ app.use(express.urlencoded({
 app.get("/api/emergency_number" , async (req, res) => {
   try{
       const emergencyNumberList = await emergency_number.find()
-      console.log(emergencyNumberList);
+     // console.log(emergencyNumberList);
        let data = {emergencyNumberList}
      // console.log(meeetngs);
       res.status(201).json(data);
@@ -45,6 +47,20 @@ app.get("/api/notice" , async (req, res) => {
   }
 })
 
+
+app.get("/api/complaints" , async (req, res) => {
+  try{
+      const complainsList = await complaint.find()
+      //console.log(emergencyNumberList);
+       let data = {complainsList}
+     // console.log(meeetngs);
+      res.status(201).json(data);
+     
+  }
+  catch{
+    console.log(err);
+  }
+})
 
 
 app.get("/api/events" , async (req, res) => {
