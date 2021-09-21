@@ -8,7 +8,7 @@ const auth = require("./middleware/auth");
 var bcrypt = require('bcryptjs');
 var jwt = require("jsonwebtoken");
 const emergency_number = require("./model/emergency_number");
-
+const notice = require("./model/notice");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({
@@ -31,7 +31,18 @@ app.get("/api/emergency_number" , async (req, res) => {
   }
 })
 
-
+app.get("/api/notice" , async (req, res) => {
+  try{
+      const noticerList = await notice.find()
+      //console.log(noticeList);
+       let data = {noticerList}
+      res.status(201).json(data);
+     
+  }
+  catch{
+    console.log(err);
+  }
+})
 
 app.get("/api/meeting" , async (req, res) => {
     try{
