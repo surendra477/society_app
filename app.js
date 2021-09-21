@@ -33,9 +33,9 @@ app.get("/api/emergency_number" , async (req, res) => {
 
 app.get("/api/notice" , async (req, res) => {
   try{
-      const noticerList = await notice.find()
+      const noticeList = await notice.find()
       //console.log(noticeList);
-       let data = {noticerList}
+       let data = {noticeList}
       res.status(201).json(data);
      
   }
@@ -43,6 +43,22 @@ app.get("/api/notice" , async (req, res) => {
     console.log(err);
   }
 })
+
+
+
+app.get("/api/events" , async (req, res) => {
+  try{
+      const eventList = await event.find()
+      //console.log(noticeList);
+       let data = {eventList}
+      res.status(201).json(data);
+     
+  }
+  catch{
+    console.log(err);
+  }
+})
+
 
 app.get("/api/meeting" , async (req, res) => {
     try{
