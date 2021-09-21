@@ -9,6 +9,7 @@ var bcrypt = require('bcryptjs');
 var jwt = require("jsonwebtoken");
 const emergency_number = require("./model/emergency_number");
 const notice = require("./model/notice");
+const event = require("./model/event");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({
