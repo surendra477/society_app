@@ -9,6 +9,7 @@ var bcrypt = require('bcryptjs');
 var jwt = require("jsonwebtoken");
 const emergency_number = require("./model/emergency_number");
 const notice = require("./model/notice");
+const parking = require("./model/parking");
 const event = require("./model/event");
 const complaint = require("./model/complaint");
 const multer = require("multer");
@@ -58,6 +59,39 @@ app.get("/api/emergency_number" , async (req, res) => {
   catch{
     console.log(err);
   }
+})
+
+app.get("/api/parking", async (req, res) => {
+  try{
+    const parkingList = await parking.find()
+   // let count = parking.collection.count()
+    //console.log(parkingList)
+  }catch{
+    console.log(err);
+  }
+})
+
+app.post("/api/parking", async (req, res) => {
+   try{
+    const parkingList = await parking.collection.count()
+    if(parkingList <=4){
+      parking.collection.createIndex( { "User": 1 }, { unique: true } )
+
+      const { qrCode, Location, User} = req.body;
+      const parkingCreate = await parking.create({
+        qrCode,
+        Location,
+        User
+      });
+      console.log(parkingList);
+      res.status(201).json(parkingCreate);
+    }else{
+      res.status(400).send("Oops,no parking spot🥲");
+    }
+    
+   }catch{
+console.log(err);
+   }
 })
 
 
@@ -225,11 +259,11 @@ app.post("/api/login", async (req, res) => {
     });  
 
 
-app.post("/welcome", auth, (req, res) => {
+app.get("/welcome", auth, (req, res) => {
   res.status(200).send("Welcome 🙌 ");
 });
 module.exports = app;
 
-app.listen(process.env.PORT || "3000", () => {
+app.listen(process.env.PORT || "3001", () => {
   console.log(`Server running on port 3000`);
 });
