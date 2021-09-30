@@ -85,8 +85,6 @@ app.get("/api/parking", auth, async (req, res) => {
     };
 
     res.status(201).json(result);
-    // let count = parking.collection.count()
-    //console.log(parkingList)
   } catch {
     console.log(err);
     res.status(401).json({ message: err });
@@ -111,13 +109,17 @@ app.post("/api/parking", auth, async (req, res) => {
       };
       const result = await parking.findOneAndUpdate(query, update);
       console.log(result);
-      res.status(201).json({ status: true });
+      res
+        .status(201)
+        .json({ isParked: true, message: "Car parked successfully" });
     } else {
-      res.status(401).json({ status: false, message: "asdasd" });
+      res
+        .status(201)
+        .json({ isParked: false, message: "Parking spot occupied already" });
     }
   } catch (err) {
     console.log(err);
-    res.status(401).json({ message: err });
+    res.status(401).json({ isParked: false, message: err });
   }
 });
 
@@ -139,13 +141,13 @@ app.delete("/api/parking", auth, async (req, res) => {
       };
       const result = await parking.findOneAndUpdate(query, update);
       console.log(result);
-      res.status(201).json({ status: true });
+      res.status(201).json({ status: true, message: "Parking cleared" });
     } else {
-      res.status(401).json({ status: false, message: "Parking cleared" });
+      res.status(201).json({ status: false, message: "Unsuccessful" });
     }
   } catch (err) {
     console.log(err);
-    res.status(401).json({ message: err });
+    res.status(401).json({ status: false, message: err });
   }
 });
 
