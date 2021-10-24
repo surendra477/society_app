@@ -11,8 +11,6 @@ const emergency_number = require("./model/emergency_number");
 const notice = require("./model/notice");
 const parking = require("./model/parking");
 const event = require("./model/event");
-const complaint = require("./model/complaint");
-const multer = require("multer");
 const mongoose = require("mongoose");
 const app = express();
 app.use(express.json());
@@ -21,30 +19,6 @@ app.use(
     extended: true,
   })
 );
-
-const FILE_TYPE_MAP = {
-  "image/png": "png",
-  "image/jpeg": "jpeg",
-  "image/jpg": "jpg",
-};
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const isValid = FILE_TYPE_MAP[file.mimetype];
-    let uploadError = new Error("invalid image type");
-    if (isValid) {
-      uploadError = null;
-    }
-    cb(uploadError, "public/uploads");
-  },
-  filename: function (req, file, cb) {
-    // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const fileName = file.originalname.split(" ").join("-");
-    const extension = FILE_TYPE_MAP[file.mimetype];
-    cb(null, `${fileName}-${Date.now()}.${extension}`);
-  },
-});
-const uploadOptions = multer({ storage: storage });
 
 //meeting goes here
 
@@ -151,57 +125,11 @@ app.delete("/api/parking", auth, async (req, res) => {
   }
 });
 
-app.post("/api/complaint", uploadOptions.single("image"), async (req, res) => {
-  //const category = await Category.findById(req.body.category);
-  // if (!category) {
-  //   return res.status(400).send("Invalid Category");
-  // }
-  const file = req.file;
-  if (!file) {
-    return res.status(400).send("No image in the request");
-  }
-  const fileName = req.file.filename;
-  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`; //https://localhost:3000/public/uploads/
-  const complaints = new complaint({
-    title: req.body.title,
-    image: `${basePath}${fileName}`, //https://localhost:3000/public/uploads/image-1292021820
-    description: req.body.description,
-  });
-  Datacomplaint = await complaints.save();
-  if (!Datacomplaint) {
-    return res.status(500).send("the complaint cannot be created");
-  }
-  res.send(Datacomplaint);
-});
-
 app.get("/api/notice", async (req, res) => {
   try {
     const noticeList = await notice.find();
     //console.log(noticeList);
     let data = { noticeList };
-    res.status(201).json(data);
-  } catch {
-    console.log(err);
-  }
-});
-
-app.get("/api/complaints", async (req, res) => {
-  try {
-    const complainsList = await complaint.find();
-    //console.log(emergencyNumberList);
-    let data = { complainsList };
-    // console.log(meeetngs);
-    res.status(201).json(data);
-  } catch {
-    console.log(err);
-  }
-});
-
-app.get("/api/events", async (req, res) => {
-  try {
-    const eventList = await event.find();
-    //console.log(noticeList);
-    let data = { eventList };
     res.status(201).json(data);
   } catch {
     console.log(err);
