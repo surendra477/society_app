@@ -193,6 +193,17 @@ app.post("/api/register", async (req, res) => {
   // Our register logic ends here
 });
 
+app.get("/api/events", async (req, res) => {
+  try {
+    const eventList = await event.find();
+    //console.log(noticeList);
+    let data = { eventList };
+    res.status(201).json(data);
+  } catch {
+    console.log(err);
+  }
+});
+
 app.post("/api/login", async (req, res) => {
   // Our login logic starts here
   try {
